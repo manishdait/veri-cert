@@ -1,0 +1,76 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+* {
+  outline: none;
+}
+
+@theme {
+  --color-background: #FFFFFF;
+  --color-background-dim: #FAFAF9;
+
+  --color-primary: #FF4D00; /* Main brand green: #4CAF50 */
+  --color-primary-green-light: #E8F5E9; /* Very light green for subtle backgrounds */
+  --color-primary-green-dark: #388E3C; /* Darker green for hover/active */
+  --color-primary-green-accent: #66BB6A;
+
+  --color-error: #DC3545;
+  --color-error-shade: #C82333;
+
+  --color-outline-normal: #E6EAF0;
+  --color-outline-light: #f0f2f5;
+
+  --color-text-bold: #333333;
+  --color-text-mid: #6c757d;
+  --color-text-dim: #adb5bd; 
+}
+
+@layer base {
+  button {
+    @apply w-full text-[1rem] font-medium px-2 py-1 rounded-md border-[.1em] cursor-pointer
+  }
+}
+
+@layer utility {
+  .low {
+    @apply bg-[#00a63d] text-white font-semibold;
+  }
+
+  .medium {
+    @apply bg-[#e17100] text-white font-semibold;
+  }
+
+  .high {
+    @apply bg-[#e7000b] text-white font-semibold;
+  }
+
+  .open {
+    @apply bg-[#155dfc] text-white font-semibold;
+  }
+
+  .close {
+    @apply bg-[#9810fa] text-white font-semibold;
+  }
+}
+
+html {
+  font-size: .98rem;
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: .9rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  html {
+    font-size: .8rem;
+  }
+}
+
+@media screen and (max-width: 200px) {
+  html {
+    font-size: .7rem;
+  }
+}

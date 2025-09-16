@@ -1,0 +1,34 @@
+<div class="w-screen h-screen flex items-center justify-center p-4">
+  <div class="w-[min(100%,350px)] flex items-center justify-center flex-col gap-8 rounded-lg shadow-md px-[1.5em] py-[2em] border-[.1em] border-outline-normal">
+    <div>
+      <h1 class="text-3xl text-center font-bold text-primary">VeriCert</h1>
+      <span class="text-xl font-semibold block text-center mb-2 text-text-bold">Login to your account</span>
+    </div>
+
+    <form class="w-full flex flex-col gap-4" [formGroup]="form" (ngSubmit)="authenticateUser()">
+      <div>
+        <label class="text-sm" for="email">Email</label>
+        <app-input [placeholder]="'eg.jhon@someone.com'" [controlType]="'email'" [id]="'email'" formControlName="email"/>
+        @if (formError() && (formControls['email'].errors && formControls['email'].errors['required'])) {
+          <span class="text-sm text-error">*Required email address</span>
+        }
+        @if (formError() && (formControls['email'].errors && formControls['email'].errors['email'])) {
+          <span class="text-sm text-error">*Invalid email address</span>
+        }
+      </div>
+
+      <div>
+        <label class="text-sm" id="password">Password</label>
+        <app-input [placeholder]="'secret-Key'" [controlType]="'password'" [id]="'password'" formControlName="password"/>
+        @if (formError() && (formControls['password'].errors && formControls['password'].errors['required'])) {
+          <span class="text-sm text-error">*Required a password</span>
+        }
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <button class="bg-primary border-primary text-white">Login</button>
+        <span class="text-center block text-text-bold">Don't have account? <a class="text-primary cursor-pointer underline" routerLink="/sign-up" replaceUrl="true">Create Account</a></span>
+      </div>
+    </form>
+  </div>
+</div>

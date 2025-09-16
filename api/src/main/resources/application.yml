@@ -1,0 +1,24 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: veri-cert
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/veri_cert
+    username: postgres
+    password: password
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: create-drop
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}
+      expiration: ${JWT_EXPIRATION}
+  hiero:
+    account_id: ${HIERO_ACCOUNT_ID}
+    private_key: ${HIERO_PRIVATE_KEY}
+    network:
+      name: ${HIERO_NETWORK}
+    contract_address: ${CONTRACT_ADDRESS}

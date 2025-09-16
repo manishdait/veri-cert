@@ -1,0 +1,43 @@
+<div class="w-screen h-screen flex items-center justify-center p-4">
+  <div class="w-[min(100%,350px)] flex items-center justify-center flex-col gap-8 rounded-lg shadow-md px-[1.5em] py-[2em] border-[.1em] border-outline-normal">
+    <div>
+      <h1 class="text-3xl text-center font-bold text-primary">VeriCert</h1>
+      <span class="text-xl font-semibold block text-center mb-2 text-text-bold">Create an account</span>
+    </div>
+
+    <form class="w-full flex flex-col gap-4" [formGroup]="form" (ngSubmit)="registerUser()">
+
+      <div>
+        <label class="text-sm" for="uname">Username</label>
+        <app-input [placeholder]="'eg.Jhon Doe'" [controlType]="'text'" [id]="'uname'" formControlName="username"/>
+        @if (formError() && (formControls['username'].errors && formControls['username'].errors['required'])) {
+          <span class="text-sm text-error">*Required a Username</span>
+        }
+      </div>
+
+      <div>
+        <label class="text-sm" id="email">Email</label>
+        <app-input [placeholder]="'eg.jhon@someone.com'" [controlType]="'email'" [id]="'email'" formControlName="email"/>
+        @if (formError() && (formControls['email'].errors && formControls['email'].errors['required'])) {
+          <span class="text-sm text-error">*Required email address</span>
+        }
+        @if (formError() && (formControls['email'].errors && formControls['email'].errors['email'])) {
+          <span class="text-sm text-error">*Invalid email address</span>
+        }
+      </div>
+
+      <div>
+        <label class="text-sm" id="password">Password</label>
+        <app-input [placeholder]="'secret-Key'" [controlType]="'password'" [id]="'password'" formControlName="password"/>
+        @if (formError() && (formControls['password'].errors && formControls['password'].errors['required'])) {
+          <span class="text-sm text-error">*Required a password</span>
+        }
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <button class="bg-primary border-primary text-white" type="submit">Create Account</button>
+        <span class="text-center block text-text-bold">Already have an account? <a class="text-primary cursor-pointer underline" routerLink="/login" replaceUrl="true">Login</a></span>
+      </div>
+    </form>
+  </div>
+</div>

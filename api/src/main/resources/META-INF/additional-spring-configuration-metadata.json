@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "spring.security.jwt.secret-key",
+    "type": "java.lang.String",
+    "description": "Secret key for JWT generation"
+  },
+  {
+    "name": "spring.security.jwt.expiration",
+    "type": "java.lang.Integer",
+    "description": "Expiration for JWT"
+  },
+  {
+    "name": "spring.hiero.account_id",
+    "type": "java.lang.String",
+    "description": "Hiero network accountID"
+  },
+  {
+    "name": "spring.hiero.private_key",
+    "type": "java.lang.String",
+    "description": "Hiero network privateKey"
+  },
+  {
+    "name": "spring.hiero.network.name",
+    "type": "java.lang.String",
+    "description": "Hiero network name"
+  },
+  {
+    "name": "spring.hiero.contract_address",
+    "type": "java.lang.String",
+    "description": "Address of deploy contract on Hiero network"
+  }
+]}
