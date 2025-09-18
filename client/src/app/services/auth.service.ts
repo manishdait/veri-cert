@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   refreshToken(): Observable<AuthResponse> {
-    return this.client.post<AuthResponse>(`${URL}/auth/refresh`, null, {headers: {'Authorization': `Bearer ${this.getAccessToken()}`}}).pipe(
+    return this.client.post<AuthResponse>(`${URL}/auth/refresh`, null, {headers: {'Authorization': `Bearer ${this.getRefreshToken()}`}}).pipe(
       map(res => {
         this.storeResponse(res);
         return res;
@@ -60,6 +60,10 @@ export class AuthService {
 
   getAccessToken() {
     return this.storage.retrieve('accessToken');
+  }
+
+  getRefreshToken() {
+    return this.storage.retrieve('refreshToken');
   }
 
   getUser() {
