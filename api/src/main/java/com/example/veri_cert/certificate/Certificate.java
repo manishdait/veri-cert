@@ -33,8 +33,8 @@ public class Certificate {
   @Column(name = "id", unique = true)
   private Long id;
 
-  @Column(name = "pub_id", nullable = false)
-  private String pubId;
+  @Column(name = "uuid", nullable = false)
+  private String uuid;
 
   @Column(name = "memo", nullable = false)
   private String memo;
@@ -49,4 +49,7 @@ public class Certificate {
 
   @Column(name = "timestamp", nullable = false)
   private Instant timestamp;
+
+  @Column(name = "revoke", nullable = false)
+  private boolean revoke;
 }

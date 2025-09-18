@@ -32,7 +32,7 @@ public class SecurityConfig {
     http.cors(cors -> cors.configurationSource(configurationSource));
     http.authorizeHttpRequests(request -> {
       request.requestMatchers("/error", "/favicon.ico", "/api/v1/auth/***").permitAll();
-      request.requestMatchers(HttpMethod.GET, "/api/v1/certificates/verify/**").permitAll();
+      request.requestMatchers(HttpMethod.GET, "/api/v1/certificates/verify/**", "/api/v1/certificates/id/**").permitAll();
       request.requestMatchers(HttpMethod.POST, "/api/v1/certificates/issue").hasRole("ISSUER");
       request.anyRequest().authenticated();
     });

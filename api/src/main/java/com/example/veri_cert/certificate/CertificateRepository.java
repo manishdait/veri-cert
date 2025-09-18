@@ -8,6 +8,7 @@ import com.example.veri_cert.user.User;
 
 
 public interface CertificateRepository extends JpaRepository<Certificate, Long> {
-  Optional<Certificate> findByPubId(String pubId);
+  Optional<Certificate> findByUuid(String uuid);
   List<Certificate> findByUser(User user);
+  List<Certificate> findByIssuer(User issuer);
 }

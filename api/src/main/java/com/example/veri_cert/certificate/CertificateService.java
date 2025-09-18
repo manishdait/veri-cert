@@ -28,58 +28,102 @@ public class CertificateService {
     User user = userRepository.findByEmail(request.userEmail()).orElseThrow(
       () -> new EntityNotFoundException("User does not exists with email `%s`".formatted(request.userEmail()))
     );
-
     User issuer = (User) authentication.getPrincipal();
     Instant timestamp = Instant.now();
 
-    String certificateHash = SHA256Util.generateHash(
-      "[User:%s|Issuer:%s|Memo:%s|Timestamp:%d|Provider:VeriCert]"
-      .formatted(user.getEmail(), issuer.getEmail(), request.memo(), Date.from(timestamp).getTime())
-    );
+    String certificateHash = generateHash(user.getEmail(), issuer.getEmail(), request.memo(), timestamp);
 
-    System.out.println("[User:%s|Issuer:%s|Memo:%s|Timestamp:%d|Provider:VeriCert]"
-      .formatted(user.getEmail(), issuer.getEmail(), request.memo(), Date.from(timestamp).getTime()));
-
-    contractService.storeCertificate(issuer.getName(), request.memo(), certificateHash);
-
-    System.out.println(certificateHash);
+    contractService.storeCertificate(user.getUname() ,issuer.getUname(), request.memo(), certificateHash);
 
     Certificate certificate = Certificate.builder()
       .memo(request.memo())
       .issuer(issuer)
       .user(user)
-      .pubId(UUID.randomUUID().toString())
+      .uuid(UUID.randomUUID().toString())
       .timestamp(timestamp)
+      .revoke(false)
       .build();
 
     certificateRepository.save(certificate);
 
-    return new CertificateResponse(issuer.getName(), timestamp, request.memo(), certificateHash);
+    return mapToResponse(certificate);
   }
 
-  public boolean verifyCertificate(String pubId) {
-    Certificate certificate = certificateRepository.findByPubId(pubId).orElseThrow(
-      () -> new EntityNotFoundException("Certificate not exists")
+  public boolean verifyCertificate(String uuid) {
+    Certificate certificate = findCertificateById(uuid);
+
+    String certHash = generateHash(
+      certificate.getUser().getEmail(), 
+      certificate.getIssuer().getEmail(), 
+      certificate.getMemo(), 
+      certificate.getTimestamp()
     );
 
-    String certHash = SHA256Util.generateHash(
-      "[User:%s|Issuer:%s|Memo:%s|Timestamp:%d|Provider:VeriCert]"
-      .formatted(certificate.getUser().getEmail(), certificate.getIssuer().getEmail(), certificate.getMemo(), Date.from(certificate.getTimestamp()).getTime())
-    );
-
-    System.out.println("[User:%s|Issuer:%s|Memo:%s|Timestamp:%d|Provider:VeriCert]"
-      .formatted(certificate.getUser().getEmail(), certificate.getIssuer().getEmail(), certificate.getMemo(), Date.from(certificate.getTimestamp()).getTime()));
-
-    System.out.println(certHash);
-
-    boolean bool = contractService.verifyCertificate(certHash);
-    return bool;
+    return contractService.verifyCertificate(certHash);
   }
 
-  public List<CertificateResponse> getIsseuedCertificated(Authentication authentication) {
+  public CertificateResponse getCertificateById(String uuid) {
+    Certificate certificate = findCertificateById(uuid);
+    return mapToResponse(certificate);
+  }
+
+  public List<CertificateResponse> getCertificatesByIssuer(Authentication authentication) {
+    User issuer = (User) authentication.getPrincipal();
+    return certificateRepository.findByIssuer(issuer).stream()
+      .map(c -> mapToResponse(c))
+      .toList();
+  }
+
+  public List<CertificateResponse> getCertificateByUser(Authentication authentication) {
     User user = (User) authentication.getPrincipal();
     return certificateRepository.findByUser(user).stream()
-      .map(c -> new CertificateResponse(c.getIssuer().getUname(), c.getTimestamp(), c.getMemo(), c.getPubId()))
+      .map(c -> mapToResponse(c))
       .toList();
+  }
+
+  public CertificateResponse revokeCertificate(String uuid, Authentication authentication) {
+    User issuer = (User) authentication.getPrincipal();
+    Certificate certificate = findCertificateById(uuid);
+    
+    if (!certificate.getIssuer().getEmail().equals(issuer.getEmail())) {
+      throw new RuntimeException("Operation nor permitted");
+    }
+
+    String certHash = generateHash(
+      certificate.getUser().getEmail(), 
+      certificate.getIssuer().getEmail(), 
+      certificate.getMemo(), 
+      certificate.getTimestamp()
+    );
+
+    contractService.revokeCertificate(certHash);
+    certificate.setRevoke(true);
+    certificateRepository.save(certificate);
+
+    return mapToResponse(certificate);
+  }
+
+  private Certificate findCertificateById(String uuid) {
+    return certificateRepository.findByUuid(uuid).orElseThrow(
+      () -> new EntityNotFoundException("Certificate with ID `%s` does not exists")
+    );
+  }
+
+  private CertificateResponse mapToResponse(Certificate certificate) {
+    return new CertificateResponse(
+      certificate.getUser().getUname(),
+      certificate.getIssuer().getUname(), 
+      certificate.getTimestamp(), 
+      certificate.getMemo(), 
+      certificate.getUuid(), 
+      certificate.isRevoke()
+    );
+  }
+
+  private String generateHash(String user, String issuer, String memo, Instant timestamp) {
+    return SHA256Util.generateHash(
+      "[User:%s|Issuer:%s|Memo:%s|Timestamp:%d|Provider:VeriCert]"
+      .formatted(user, issuer, memo, Date.from(timestamp).getTime())
+    );
   }
 }

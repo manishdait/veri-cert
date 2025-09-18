@@ -24,11 +24,12 @@ public class ContractService {
   @Value("${spring.hiero.contract_address}")
   private String contractId;
 
-  public Instant storeCertificate(String issuer, String memo, String certHash) {
+  public Instant storeCertificate(String user, String issuer, String memo, String certHash) {
     try {
       ContractCallResult result = smartContractClient.callContractFunction(
         ContractId.fromString(contractId), 
         "storeCertificate", 
+        ContractParam.string(user),
         ContractParam.string(issuer),
         ContractParam.string(memo),
         ContractParam.bytes32(SHA256Util.toBytes(certHash))
@@ -58,15 +59,29 @@ public class ContractService {
 
   public void getCertificate(String certHash) {
     try {
-      smartContractClient.callContractFunction(
+      ContractCallResult result = smartContractClient.callContractFunction(
         ContractId.fromString(contractId), 
         "getCertificate", 
         ContractParam.bytes32(SHA256Util.toBytes(certHash))
       );
 
-      // String issuer = result.getString(0);
-      // String memo = result.getString(1);
-      // boolean revoke = result.getBool(2);
+      String user = result.getString(0);
+      String issuer = result.getString(1);
+      String memo = result.getString(2);
+      boolean revoke = result.getBool(3);
+    } catch (HieroException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e.getMessage());
+    }
+  }
+
+  public void revokeCertificate(String certHash) {
+    try {
+      smartContractClient.callContractFunction(
+        ContractId.fromString(contractId), 
+        "revokeCertificate", 
+        ContractParam.bytes32(SHA256Util.toBytes(certHash))
+      );
     } catch (HieroException e) {
       e.printStackTrace();
       throw new RuntimeException(e.getMessage());
