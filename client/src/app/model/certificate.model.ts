@@ -1,6 +1,13 @@
 export interface Certificate {
+  user: string;
   issuer: string;
   timestamp: Date;
   memo: string;
-  pubKey: string;
+  uuid: string;
+  revoke: boolean;
+};
+
+export interface CertificateRequest {
+  userEmail: string;
+  memo: string;
 };

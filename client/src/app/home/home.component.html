@@ -1,39 +1,33 @@
-<div class="w-screen h-screen">
-  <div class="w-full border-[.1em] border-outline-normal p-4 flex items-center justify-center">
-    <div class="w-[min(100%,1000px)]">
-      <span class="text-2xl font-bold text-primary">VeriCert</span>
-    </div>
+<main class="w-screen flex items-center justify-center">
+  <div class="w-[min(100%,1000px)] flex flex-col items-center justify-center gap-4 p-4 text-text-bold">
+      <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal p-4 rounded-lg cursor-pointer hover:shadow-sm" routerLink="/verify">
+        <fa-icon class="text-5xl text-primary mb-2" [icon]="'circle-check'"/>
+        <span class="text-3xl block text-center font-semibold">Verify Certificate</span>
+        <p class="text-base text-center text-text-mid">Check the authenticity of a certificate using its unique ID.</p>
+      </div>
+
+      @if (user()!.role === 'USER') {
+        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal p-4 rounded-lg cursor-pointer hover:shadow-sm" routerLink="/certificates">
+          <fa-icon class="text-5xl text-primary mb-2" [icon]="'bars'"/>
+          <span class="text-3xl block text-center font-semibold">View Certificates</span>
+          <p class="text-base text-center text-text-mid">See a list of your previously issued certificates.</p>
+        </div>
+      }
+
+      @if (user()!.role === 'ISSUER') {
+        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal p-4 rounded-lg cursor-pointer hover:shadow-sm" routerLink="/issue">
+          <fa-icon class="text-5xl text-primary mb-2" [icon]="'plus'"/>
+          <span class="text-3xl block text-center font-semibold">Issue Certificates</span>
+          <p class="text-base text-center text-text-mid">Issue a new certificate with a unique ID and details.</p>
+        </div>
+      }
+
+      @if (user()!.role === 'ISSUER') {
+        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal p-4 rounded-lg cursor-pointer hover:shadow-sm" routerLink="/revoke">
+          <fa-icon class="text-5xl text-primary mb-2" [icon]="'circle-xmark'"/>
+          <span class="text-3xl block text-center font-semibold">Revoke Certificate</span>
+          <p class="text-base text-center text-text-mid">Revoke a previously issued certificate, making it invalid.</p>
+        </div>
+      }
   </div>
-
-  <div class="w-full flex items-center justify-center p-4 text-text-bold">
-    <div class="w-[min(100%,1000px)] flex flex-col">
-      <span class="text-3xl font-semibold text-text-bold mb-4">Issued Certificated</span>
-
-      <ul class="flex flex-col gap-4">
-        @for (certificate of certificates(); track certificate.pubKey) {
-          <li class="rounded-lg flex flex-col p-4 border-[.1em] border-outline-normal">
-            <div class="flex flex-col mb-2">
-              <span class="text-lg font-bold flex items-center justify-between gap-1">
-                <span>{{ certificate.pubKey }}</span>
-                <fa-icon class="text-[1rem] text-text-mid cursor-pointer" [icon]="'copy'" (click)="copy(certificate.pubKey)" title="copy"/>
-              </span>
-              <span class="text-lg">{{ certificate.memo }}</span>
-            </div>
-
-            <span class="text-text-mid text-sm">{{ 'Issued By: ' + certificate.issuer }}</span>
-            <span class="text-text-mid text-sm">{{ 'Issued At: ' + certificate.timestamp}}</span>
-          </li>
-        }
-      </ul>
-    </div>
-  </div>
-
-  <button class="w-[5rem] fixed bottom-2 right-2 flex flex-col gap-1 text-white bg-primary border-primary" (click)="setVerifyForm(true)">
-    <fa-icon class="text-[1.4rem]" [icon]="'circle-check'"/>
-    <span class="text-[.8rem] font-semibold">Verify Certificate</span>
-  </button>
-</div>
-
-@if (verifyForm()) {
-  <app-verify-form (onCancel)="setVerifyForm(false)"/>
-}
+</main>

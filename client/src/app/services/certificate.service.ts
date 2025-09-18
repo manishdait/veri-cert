@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Certificate } from '../model/certificate.model';
+import { Certificate, CertificateRequest } from '../model/certificate.model';
 
 const URL = environment.API_URL;
 
@@ -17,10 +17,26 @@ export class CertificateService {
   }
 
   getCertificates(): Observable<Certificate[]> {
-    return this.interceptorClient.get<Certificate[]>(`${URL}/certificates`);
+    return this.interceptorClient.get<Certificate[]>(`${URL}/certificates/me`);
   }
 
-  verifyCertificate(key: string): Observable<{[key: string]: boolean}> {
-    return this.client.get<{[key: string]: boolean}>(`${URL}/certificates/verify/${key}`);
+  verifyCertificate(uuid: string): Observable<{[uuid: string]: boolean}> {
+    return this.client.get<{[uuid: string]: boolean}>(`${URL}/certificates/verify/${uuid}`);
+  }
+
+  getCertificateById(uuid: string): Observable<Certificate> {
+    return this.client.get<Certificate>(`${URL}/certificates/id/${uuid}`);
+  }
+
+  issueCertificate(request: CertificateRequest): Observable<Certificate> {
+    return this.interceptorClient.post<Certificate>(`${URL}/certificates/issue`,request);
+  }
+
+  getCertificateByIssuer() {
+    return this.interceptorClient.get<Certificate[]>(`${URL}/certificates/issue-by/me`);
+  }
+
+  revokeCertificate(uuid: string): Observable<Certificate> {
+    return this.interceptorClient.put<Certificate>(`${URL}/certificates/revoke/${uuid}`, null);
   }
 }

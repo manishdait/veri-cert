@@ -1,0 +1,67 @@
+<main class="w-screen flex items-center justify-center text-text-bold p-4 z-50">
+  <div class="bg-background w-[min(100%,400px)] rounded-lg border-[.1em] border-outline-normal p-4">
+    @if (verified() === null) {
+      <div class="flex items-center justify-between gap-1 mb-4">
+        <span class="text-xl font-semibold block">Verify Certificate</span>
+      </div>
+
+      <form class="w-full flex flex-col gap-4" [formGroup]="form" (ngSubmit)="verifyCertificate()">
+        <div>
+          <label class="text-sm" for="id">Cerificate ID</label>
+          <app-input [id]="'id'" [placeholder]="'eg.q9beeee5-7898-4f34-8860-d3507d6abaaa'" formControlName="uuid"/>
+          @if (formError() && formControl['uuid'].errors) {
+            <span class="text-sm text-error">*Required certificate id</span>
+          }
+        </div>
+
+        <button class="bg-primary border-primary text-white">Verify</button>
+      </form>
+    } @else {
+      <div class="flex flex-col">
+        <span class="text-2xl font-semibold">Certificate Report</span>
+        <span class="flex items-center gap-1">
+          <span>Verification Status for Certificate:</span>
+          @if (certificate() === null) {
+            <span class="uppercase text-amber-500 rounded-md px-2 py-1 text-base font-bold">Not Found</span>
+          } @else {
+            <span class="uppercase rounded-md px-2 py-1 text-base font-bold" [class]="{'text-green-600': verified(), 'text-error': !verified()}">{{ verified()? 'Verified' : 'Invalid' }}</span>
+          }
+        </span>
+
+        
+        @if (certificate() !== null) {        
+          <div class="border-b-[.1em] border-outline-normal w-full my-4"></div>
+
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-col">
+              <span class="text-xs uppercase text-primary">Certificate ID</span>
+              <span class="text-base flex items-center justify-between gap-2">{{ certificate()!.uuid }}</span>
+            </div>
+
+            <div class="flex flex-col">
+              <span class="text-xs uppercase text-primary">Memo</span>
+              <span class="text-base">{{ certificate()!.memo }}</span>
+            </div>
+
+            <div class="flex flex-col">
+              <span class="text-xs uppercase text-primary">USER</span>
+              <span class="text-base">{{ certificate()!.user }}</span>
+            </div>
+
+            <div class="flex flex-col">
+              <span class="text-xs uppercase text-primary">Issued By</span>
+              <span class="text-base">{{ certificate()!.issuer }}</span>
+            </div>
+
+            <div class="flex flex-col">
+              <span class="text-xs uppercase text-primary">Issued At</span>
+              <span class="text-base">{{ certificate()!.timestamp }}</span>
+            </div>
+          </div>
+        }
+
+        <button class="bg-primary text-white border-primary mt-4" (click)="close()">Close</button>
+      </div>
+    }
+  </div>
+</main>

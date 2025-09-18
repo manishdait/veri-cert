@@ -1,0 +1,31 @@
+<main class="w-screen flex items-center justify-center p-4">
+  <div class="w-[min(100%,1000px)] flex flex-col items-center justify-center gap-4  text-text-bold border-[.1em] rounded-lg border-outline-normal p-4">
+    <div class="flex items-center justify-between gap-1 mb-4">
+      <span class="text-xl font-semibold block">Issue Certificate</span>
+    </div>
+
+    <form class="w-full flex flex-col gap-4" [formGroup]="form" (ngSubmit)="issueCertificate()">
+      <div>
+        <label class="text-sm" for="user-email">User Email</label>
+        <app-input [id]="'user-email'" [placeholder]="'eg.jhon@test.in'" formControlName="uemail"/>
+        @if (formError() && (formControl['uemail'].errors && formControl['uemail'].errors['required'])) {
+          <span class="text-sm text-error">*Required user email</span>
+        }
+
+        @if (formError() && (formControl['uemail'].errors && formControl['uemail'].errors['email'])) {
+          <span class="text-sm text-error">*Enter a valid email address</span>
+        }
+      </div>
+
+      <div>
+        <label class="text-sm" for="memo">Memo</label>
+        <app-input [id]="'memo'" [placeholder]="'eg.Short Description for the certificate'" formControlName="memo"/>
+        @if (formError() && (formControl['memo'].errors && formControl['memo'].errors['required'])) {
+          <span class="text-sm text-error">*Required a memo</span>
+        }
+      </div>
+
+      <button class="bg-primary border-primary text-white">Issue Certificate</button>
+    </form>
+  </div>
+</main>
