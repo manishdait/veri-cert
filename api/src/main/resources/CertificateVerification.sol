@@ -3,6 +3,7 @@ pragma solidity ^0.8;
 
 contract CertificateVerification {
     struct Certificate {
+        string user;
         string issuer;
         string memo;
         uint256 timestamp;
@@ -22,9 +23,9 @@ contract CertificateVerification {
         _;
     }
 
-    function storeCertificate(string memory issuer, string memory memo, bytes32 certHash) external _Owner returns (uint256) {
+    function storeCertificate(string memory user, string memory issuer, string memory memo, bytes32 certHash) external _Owner returns (uint256) {
         require(certificates[certHash].timestamp == 0, "Certificate already exists");
-        certificates[certHash] = Certificate(issuer, memo, block.timestamp, false);
+        certificates[certHash] = Certificate(user, issuer, memo, block.timestamp, false);
         return certificates[certHash].timestamp;
     }
 
@@ -33,10 +34,10 @@ contract CertificateVerification {
         certificates[certHash].revoke = true;
     } 
 
-    function getCertificate(bytes32 certHash) external view returns (string memory issuer, string memory memo, bool) {
+    function getCertificate(bytes32 certHash) external view returns (string memory user, string memory issuer, string memory memo, bool) {
         require(certificates[certHash].timestamp != 0, "Certificate does not already exists");
         Certificate memory cert =  certificates[certHash];
-        return (cert.issuer, cert.memo, cert.revoke);
+        return (cert.user, cert.issuer, cert.memo, cert.revoke);
     }
 
     function verifyCertificate(bytes32 certHash) external view returns (bool) {
