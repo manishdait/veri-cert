@@ -2,11 +2,16 @@
   <div class="w-[min(100%,350px)] flex items-center justify-center flex-col gap-8 rounded-lg shadow-md px-[1.5em] py-[2em] border-[.1em] border-outline-normal">
     <div>
       <h1 class="text-3xl text-center font-bold text-primary">VeriCert</h1>
-      <span class="text-xl font-semibold block text-center mb-2 text-text-bold">Create an account</span>
+      <span class="text-xl font-semibold block text-center text-text-bold">Create an account</span>
+      
+      <span class="block text-center text-text-mid mb-2">as</span>
+      <div class="w-full grid grid-cols-2 gap-2 text-text-mid">
+        <a class="uppercase text-[1.2rem] text-center font-medium rounded-md cursor-pointer" [class]="{'text-primary': role()==='USER', 'bg-primary/10': role() === 'USER'}" (click)="role.set('USER')">User</a>
+        <a class="uppercase text-[1.2rem] text-center font-medium rounded-md cursor-pointer" [class]="{'text-primary': role()==='ISSUER', 'bg-primary/10': role() === 'ISSUER'}" (click)="role.set('ISSUER')">Issuer</a>
+      </div>
     </div>
 
     <form class="w-full flex flex-col gap-4" [formGroup]="form" (ngSubmit)="registerUser()">
-
       <div>
         <label class="text-sm" for="uname">Username</label>
         <app-input [placeholder]="'eg.Jhon Doe'" [controlType]="'text'" [id]="'uname'" formControlName="username"/>

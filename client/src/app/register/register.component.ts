@@ -15,6 +15,8 @@ export class RegisterComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  role = signal<'USER'|'ISSUER'>('USER')
+
   form: FormGroup;
   formError = signal(false);
 
@@ -41,14 +43,12 @@ export class RegisterComponent {
       uname: this.form.get('username')?.value,
       email: this.form.get('email')?.value,
       password: this.form.get('password')?.value,
-      role: 'USER'
+      role: this.role()
     }
 
     this.authService.registerUser(request).subscribe({
       next: (res) => {
-        if (this.authService.getUser()()?.role === 'USER') {
-          this.router.navigate(['/home'], {replaceUrl: true})
-        }
+        this.router.navigate(['/home'], {replaceUrl: true});
       },
       error: (err) => {
         console.error(err);
