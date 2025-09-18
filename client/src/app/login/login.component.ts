@@ -43,9 +43,7 @@ export class LoginComponent {
 
     this.authService.authenticateUser(request).subscribe({
       next: (res) => {
-        if (this.authService.getUser()()?.role === 'USER') {
-          this.router.navigate(['/home'], {replaceUrl: true})
-        }
+        this.router.navigate(['/home'], {replaceUrl: true})
       },
       error: (err) => {
         console.error(err);
