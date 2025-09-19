@@ -2,6 +2,7 @@ package com.example.veri_cert.config;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,9 @@ import com.example.veri_cert.user.UserService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+  @Value("${spring.application.client}")
+  private String client;
+
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource configurationSource, AuthenticationProvider authenticationProvider, JwtFilter jwtFilter) throws Exception {
     http.csrf(csrf -> csrf.disable());
@@ -57,7 +61,7 @@ public class SecurityConfig {
   @Bean
   CorsConfigurationSource configurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+    configuration.setAllowedOrigins(List.of(client));
     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(List.of(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE, HttpHeaders.ACCEPT, HttpHeaders.ORIGIN));
 

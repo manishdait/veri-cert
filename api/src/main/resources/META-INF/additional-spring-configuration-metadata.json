@@ -28,5 +28,10 @@
     "name": "spring.hiero.contract_address",
     "type": "java.lang.String",
     "description": "Address of deploy contract on Hiero network"
+  },
+  {
+    "name": "spring.application.client",
+    "type": "java.lang.String",
+    "description": "Clinet url for application'"
   }
 ]}
