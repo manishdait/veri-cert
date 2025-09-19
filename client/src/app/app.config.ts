@@ -6,16 +6,21 @@ import { provideNgxWebstorage, withLocalStorage } from 'ngx-webstorage';
 import { routes } from './app.routes';
 import { RefreshTokenInterceptor } from './core/interceptors/refresh-token.interceptor';
 import { AccessTokenInterceptor } from './core/interceptors/access-token.interceptor';
+import { provideState, provideStore } from '@ngrx/store';
+import { certificateReducer } from './store/certificate/certificate.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideStore(),
+    provideState({name: 'certificates', reducer: certificateReducer}),
     provideNgxWebstorage(withLocalStorage()),
     provideHttpClient(withInterceptorsFromDi()),
     [
-      { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true }
-    ]
-  ]
+        { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true }
+    ],
+    provideStore()
+]
 };

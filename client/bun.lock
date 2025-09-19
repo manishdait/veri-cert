@@ -13,6 +13,7 @@
         "@angular/router": "^19.2.0",
         "@fortawesome/angular-fontawesome": "1.0.0",
         "@fortawesome/free-solid-svg-icons": "^6.7.1",
+        "@ngrx/store": "^20.0.1",
         "@tailwindcss/postcss": "^4.1.13",
         "angularx-qrcode": "^20.0.0",
         "ngx-webstorage": "^20.0.0",
@@ -441,6 +442,8 @@
     "@napi-rs/nice-win32-ia32-msvc": ["@napi-rs/nice-win32-ia32-msvc@1.1.1", "", { "os": "win32", "cpu": "ia32" }, "sha512-CNQqlQT9MwuCsg1Vd/oKXiuH+TcsSPJmlAFc5frFyX/KkOh0UpBLEj7aoY656d5UKZQMQFP7vJNa1DNUNORvug=="],
 
     "@napi-rs/nice-win32-x64-msvc": ["@napi-rs/nice-win32-x64-msvc@1.1.1", "", { "os": "win32", "cpu": "x64" }, "sha512-vB+4G/jBQCAh0jelMTY3+kgFy00Hlx2f2/1zjMoH821IbplbWZOkLiTYXQkygNTzQJTq5cvwBDgn2ppHD+bglQ=="],
+
+    "@ngrx/store": ["@ngrx/store@20.0.1", "", { "dependencies": { "tslib": "^2.0.0" }, "peerDependencies": { "@angular/core": "^20.0.0", "rxjs": "^6.5.3 || ^7.5.0" } }, "sha512-SWIHKe9lBoNf4rOklaWbCRAz8ie1Duf1iL4SMe6BipqhdUfJ/pEbcz3xMQUIlv1CciHhRgMJFTzFrDxamYHknQ=="],
 
     "@ngtools/webpack": ["@ngtools/webpack@19.2.16", "", { "peerDependencies": { "@angular/compiler-cli": "^19.0.0 || ^19.2.0-next.0", "typescript": ">=5.5 <5.9", "webpack": "^5.54.0" } }, "sha512-KJf/pmpQl8SGhTof91EUuSFfR34kSTjcCQp3JQWDvG08+Lnx3wKbnKrZjC9vz0fhRrB+ZFVxeAyDAh1zZk07wg=="],
 

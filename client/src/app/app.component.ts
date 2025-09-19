@@ -19,7 +19,10 @@ export class AppComponent implements OnInit {
   constructor() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.navbar.set(!(['/login', '/sign-up'].includes(event.urlAfterRedirects) || event.urlAfterRedirects.startsWith('/view/')))
+        this.navbar.set(!(
+          ['/login', '/sign-up'].includes(event.urlAfterRedirects) || 
+          event.urlAfterRedirects.startsWith('/view/')
+        ))
       }
     })
   }

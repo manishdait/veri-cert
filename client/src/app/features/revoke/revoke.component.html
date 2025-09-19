@@ -3,7 +3,7 @@
     <span class="block w-full text-3xl font-semibold text-text-bold mb-4">Issued Certificated</span>
 
     <ul class="w-full flex flex-col gap-4">
-      @for (certificate of certificates(); track certificate.uuid) {
+      @for (certificate of (certificates | async); track certificate.uuid) {
         <li class="rounded-lg flex flex-col p-4 border-[.1em] border-outline-normal">
           <div class="flex flex-col mb-2">
             <span class="text-lg font-bold flex items-center justify-between gap-1">
