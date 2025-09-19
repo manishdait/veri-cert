@@ -1,5 +1,16 @@
 <div class="w-full border-[.1em] border-outline-normal p-4 flex items-center justify-center">
-  <div class="w-[min(100%,1000px)]">
+  <div class="w-[min(100%,1000px)] flex items-center justify-between gap-2">
     <span class="text-2xl font-bold text-primary">VeriCert</span>
+
+    <div>
+      @if (user() !== null) {
+        <button class="flex items-center gap-1 text-sm w-fit font-medium" (click)="logout()">
+          <fa-icon class="text-xs" [icon]="'right-from-bracket'"/>
+          <span>Logout</span>
+        </button>
+      } @else {
+        <button class="text-sm w-fit font-medium" (click)="login()">Login</button>
+      }
+    </div>
   </div>
 </div>

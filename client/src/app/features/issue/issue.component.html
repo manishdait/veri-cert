@@ -25,7 +25,7 @@
         }
       </div>
 
-      <button class="bg-primary border-primary text-white">Issue Certificate</button>
+      <button [class]="{'loading': processing()}">Issue Certificate</button>
     </form>
   </div>
 </main>

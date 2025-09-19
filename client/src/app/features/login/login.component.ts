@@ -15,6 +15,7 @@ export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  processing = signal(false);
   form: FormGroup;
   formError = signal(false);
 
@@ -36,16 +37,23 @@ export class LoginComponent {
     }
 
     this.formError.set(false);
+
+    this.form.disable();
     const request: AuthRequest = {
       email: this.form.get('email')?.value,
       password: this.form.get('password')?.value
     }
 
+    this.processing.set(true);
     this.authService.authenticateUser(request).subscribe({
       next: (res) => {
-        this.router.navigate(['/home'], {replaceUrl: true})
+        this.form.enable();
+        this.router.navigate(['/home'], {replaceUrl: true});
+        this.processing.set(false);
       },
       error: (err) => {
+        this.form.enable();
+        this.processing.set(false);
         console.error(err);
       }
     });

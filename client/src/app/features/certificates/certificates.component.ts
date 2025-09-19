@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CertificateService } from '../../core/services/certificate.service';
 import { Certificate } from '../../model/certificate.model';
+import { CardComponent } from '../../shared/components/card/card.component';
 
 @Component({
   selector: 'app-certificates',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, CardComponent],
   templateUrl: './certificates.component.html',
   styleUrl: './certificates.component.css'
 })
@@ -33,9 +34,5 @@ export class CertificatesComponent implements OnInit {
 
   copy(uuid: string) {
     navigator.clipboard.writeText(uuid);
-  }
-
-  copyUrl(uuid: string) {
-    navigator.clipboard.writeText(`http://localhost:4200/view/${uuid}`);
   }
 }

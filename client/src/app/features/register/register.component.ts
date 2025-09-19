@@ -19,6 +19,7 @@ export class RegisterComponent {
 
   form: FormGroup;
   formError = signal(false);
+  processing = signal(false);
 
   constructor() {
     this.form = new FormGroup({
@@ -39,6 +40,8 @@ export class RegisterComponent {
     }
 
     this.formError.set(false);
+
+    this.form.disable();
     const request: RegistrationRequest = {
       uname: this.form.get('username')?.value,
       email: this.form.get('email')?.value,
@@ -46,11 +49,16 @@ export class RegisterComponent {
       role: this.role()
     }
 
+    this.processing.set(true);
     this.authService.registerUser(request).subscribe({
       next: (res) => {
+        this.form.enable();
         this.router.navigate(['/home'], {replaceUrl: true});
+        this.processing.set(false);
       },
       error: (err) => {
+        this.form.enable();
+        this.processing.set(false);
         console.error(err);
       }
     });

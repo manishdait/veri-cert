@@ -5,10 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { CertificateService } from '../../core/services/certificate.service';
 import { Certificate } from '../../model/certificate.model';
 import { InputComponent } from '../../shared/components/input/input.component';
+import { InfoComponent } from '../../shared/components/info/info.component';
 
 @Component({
   selector: 'app-verify',
-  imports: [ReactiveFormsModule, FontAwesomeModule, InputComponent],
+  imports: [ReactiveFormsModule, FontAwesomeModule, InputComponent, InfoComponent],
   templateUrl: './verify.component.html',
   styleUrl: './verify.component.css'
 })
@@ -22,6 +23,7 @@ export class VerifyFormComponent implements OnInit {
   verified = signal<null|boolean>(null);
   certificate = signal<null|Certificate>(null);
 
+  processing = signal(false);
   formError = signal(false);
   form: FormGroup;
   
@@ -53,19 +55,25 @@ export class VerifyFormComponent implements OnInit {
 
     this.formError.set(false);
 
+    this.form.disable();
     this.uuid.set(this.form.get('uuid')?.value);
     this.verify(this.uuid()!);    
   }
 
   verify(uuid: string) {
+    this.processing.set(true);
     this.certificateService.verifyCertificate(uuid).subscribe({
       next: (res) => {
         this.certificateService.getCertificateById(uuid).subscribe(cert => {
+          this.form.enable();
+          this.processing.set(false);
           this.verified.set(res['verified']);
           this.certificate.set(cert);
         })        
       },
       error: (err) => {
+        this.form.enable();
+        this.processing.set(false);
         this.verified.set(false);
         console.error(err);
       }

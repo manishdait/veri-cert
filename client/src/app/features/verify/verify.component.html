@@ -14,7 +14,7 @@
           }
         </div>
 
-        <button class="bg-primary border-primary text-white">Verify</button>
+        <button [class]="{'loading': processing()}">Verify</button>
       </form>
     } @else {
       <div class="flex flex-col">
@@ -32,35 +32,10 @@
         @if (certificate() !== null) {        
           <div class="border-b-[.1em] border-outline-normal w-full my-4"></div>
 
-          <div class="flex flex-col gap-2">
-            <div class="flex flex-col">
-              <span class="text-xs uppercase text-primary">Certificate ID</span>
-              <span class="text-base flex items-center justify-between gap-2">{{ certificate()!.uuid }}</span>
-            </div>
-
-            <div class="flex flex-col">
-              <span class="text-xs uppercase text-primary">Memo</span>
-              <span class="text-base">{{ certificate()!.memo }}</span>
-            </div>
-
-            <div class="flex flex-col">
-              <span class="text-xs uppercase text-primary">USER</span>
-              <span class="text-base">{{ certificate()!.user }}</span>
-            </div>
-
-            <div class="flex flex-col">
-              <span class="text-xs uppercase text-primary">Issued By</span>
-              <span class="text-base">{{ certificate()!.issuer }}</span>
-            </div>
-
-            <div class="flex flex-col">
-              <span class="text-xs uppercase text-primary">Issued At</span>
-              <span class="text-base">{{ certificate()!.timestamp }}</span>
-            </div>
-          </div>
+          <app-info [certificate]="certificate()!"/>
         }
 
-        <button class="bg-primary text-white border-primary mt-4" (click)="close()">Close</button>
+        <button class=" mt-4" (click)="close()">Close</button>
       </div>
     }
   </div>

@@ -1,0 +1,47 @@
+<div class="rounded-lg flex flex-col p-4 border-[.1em] border-outline-normal">
+  @if (type() === 'USER') {
+    <ng-container [ngTemplateOutlet]="user"/>
+  }
+
+  @if (type() === 'ISSUER') {
+    <ng-container [ngTemplateOutlet]="issuer"/>
+  }
+</div>
+
+<ng-template #issuer>
+  <div class="flex flex-col mb-2">
+    <span class="text-lg font-bold flex items-center justify-between gap-1">
+      <span>{{ certificate().uuid }}</span>
+      <fa-icon class="text-[1rem] text-text-mid cursor-pointer" [icon]="'copy'" (click)="copy(certificate().uuid)" title="copy"/>
+    </span>
+    <span class="text-lg">{{ certificate().memo }}</span>
+  </div>
+
+  <span class="text-text-mid text-sm">{{ 'User: ' + certificate().user }}</span>
+  <span class="text-text-mid text-sm">{{ 'Issued By: ' + certificate().issuer }}</span>
+  <span class="text-text-mid text-sm">{{ 'Issued At: ' + certificate().timestamp}}</span>
+            
+  @if (certificate().revoke) {
+    <span class="text-error text-base font-medium">Revoked (Certificate has been revoked)</span>
+  } @else {
+    <button class="w-fit text-sm bg-error border-none text-white mt-2 hover:bg-error-hover s-button" [class]="{'loading': processing()}" (click)="revoke(certificate().uuid)">Revoke</button>
+  }
+</ng-template>
+
+<ng-template #user>
+  <div class="flex flex-col mb-2">
+    <span class="text-lg font-bold flex items-center justify-between gap-1">
+      <span>{{ certificate().uuid }}</span>
+      <fa-icon class="text-[1rem] text-text-mid cursor-pointer" [icon]="'copy'" (click)="copy(certificate().uuid)" title="copy"/>
+    </span>
+     <span class="text-lg">{{ certificate().memo }}</span>
+  </div>
+
+  <span class="text-text-mid text-sm">{{ 'Issued By: ' + certificate().issuer }}</span>
+  <span class="text-text-mid text-sm">{{ 'Issued At: ' + certificate().timestamp}}</span>
+
+  @if (certificate().revoke) {
+    <span class="text-error text-base font-medium">Revoked (This certificate has been revoked by Issuer)</span>
+  }
+  <button class="w-fit text-white text-sm mt-2" (click)="copyUrl(certificate().uuid)">Copy Url</button>
+</ng-template>

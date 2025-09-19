@@ -4,10 +4,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { CertificateService } from '../../core/services/certificate.service';
 import { Certificate } from '../../model/certificate.model';
+import { InfoComponent } from '../../shared/components/info/info.component';
 
 @Component({
   selector: 'app-view',
-  imports: [FontAwesomeModule, QRCodeComponent],
+  imports: [FontAwesomeModule, QRCodeComponent, InfoComponent],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css'
 })
@@ -44,9 +45,5 @@ export class ViewComponent implements OnInit {
         this.verified.set(false);
       }
     })
-  }
-
-  copy() {
-    navigator.clipboard.writeText(this.certificate()!.uuid);
-  }
+  }  
 }

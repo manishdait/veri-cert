@@ -26,7 +26,7 @@
       </div>
 
       <div class="flex flex-col gap-2">
-        <button class="bg-primary border-primary text-white">Login</button>
+        <button [class]="{'loading': processing()}">Login</button>
         <span class="text-center block text-text-bold">Don't have account? <a class="text-primary cursor-pointer underline" routerLink="/sign-up" replaceUrl="true">Create Account</a></span>
       </div>
     </form>

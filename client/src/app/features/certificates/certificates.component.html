@@ -4,22 +4,8 @@
 
     <ul class="w-full flex flex-col gap-4">
       @for (certificate of certificates(); track certificate.uuid) {
-        <li class="rounded-lg flex flex-col p-4 border-[.1em] border-outline-normal">
-          <div class="flex flex-col mb-2">
-            <span class="text-lg font-bold flex items-center justify-between gap-1">
-              <span>{{ certificate.uuid }}</span>
-              <fa-icon class="text-[1rem] text-text-mid cursor-pointer" [icon]="'copy'" (click)="copy(certificate.uuid)" title="copy"/>
-            </span>
-            <span class="text-lg">{{ certificate.memo }}</span>
-          </div>
-
-          <span class="text-text-mid text-sm">{{ 'Issued By: ' + certificate.issuer }}</span>
-          <span class="text-text-mid text-sm">{{ 'Issued At: ' + certificate.timestamp}}</span>
-
-          @if (certificate.revoke) {
-            <span class="text-error text-base font-medium">Revoked (This certificate has been revoked by Issuer)</span>
-          }
-          <button class="w-fit bg-primary text-white border-primary text-sm mt-2" (click)="copyUrl(certificate.uuid)">Copy Url</button>
+        <li>
+          <app-card [certificate]="certificate" [type]="'USER'"/>
         </li>
       } @empty {
         <li class="rounded-lg flex flex-col p-4 border-[.1em] border-outline-normal text-text-mid">

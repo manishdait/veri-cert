@@ -13,6 +13,7 @@ import { InputComponent } from '../../shared/components/input/input.component';
 export class IssueComponent {
   certificateService = inject(CertificateService);
 
+  processing = signal(false);
   form: FormGroup;
   formError = signal(false);
   
@@ -40,12 +41,15 @@ export class IssueComponent {
       memo: this.form.get('memo')?.value
     }
 
+    this.processing.set(true);
     this.certificateService.issueCertificate(request).subscribe({
       next: (res) => {
-
+        this.processing.set(false);
+        this.form.reset();
       },
       error: (err) => {
-        
+        this.processing.set(false);
+        this.form.reset();
       }
     })
   }
