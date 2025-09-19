@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CertificateService } from '../../core/services/certificate.service';
 import { CertificateRequest } from '../../model/certificate.model';
 import { InputComponent } from '../../shared/components/input/input.component';
+import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-issue',
@@ -12,6 +13,7 @@ import { InputComponent } from '../../shared/components/input/input.component';
 })
 export class IssueComponent {
   certificateService = inject(CertificateService);
+  alertService = inject(AlertService);
 
   processing = signal(false);
   form: FormGroup;
@@ -46,8 +48,10 @@ export class IssueComponent {
       next: (res) => {
         this.processing.set(false);
         this.form.reset();
+        this.alertService.setAlert({message:`Issued certificate to ${res.user}`, type: 'SUCCESS'});
       },
       error: (err) => {
+        this.alertService.setAlert({message:'Error occur while issuing certificate', type: 'ERROR'});
         this.processing.set(false);
         this.form.reset();
       }

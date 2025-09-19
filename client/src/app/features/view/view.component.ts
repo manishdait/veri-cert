@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { CertificateService } from '../../core/services/certificate.service';
@@ -14,6 +14,7 @@ import { ThemeService } from '../../core/services/theme.service';
   styleUrl: './view.component.css'
 })
 export class ViewComponent implements OnInit {
+  router = inject(Router);
   certificateService = inject(CertificateService);
   themeService = inject(ThemeService);
 
@@ -22,7 +23,6 @@ export class ViewComponent implements OnInit {
   uuid = signal(this.route.snapshot.params['uuid'])
   certificate = signal<Certificate | null>(null);
 
-  verified = signal<boolean|null>(null);
   darkMode = this.themeService.dark;
 
   constructor() {
@@ -41,13 +41,6 @@ export class ViewComponent implements OnInit {
   }
 
   verify() {
-    this.certificateService.verifyCertificate(this.certificate()!.uuid).subscribe({
-      next: (res) => {
-        this.verified.set(res['verified'])
-      },
-      error: (err) => {
-        this.verified.set(false);
-      }
-    })
+    this.router.navigate(['/verify'],{queryParams: {'uuid': this.uuid()}});
   }  
 }

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { certificate } from '../../store/certificate/certificate.selector';
 import { CardComponent } from '../../shared/components/card/card.component';
+import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-revoke',
@@ -19,6 +20,7 @@ import { CardComponent } from '../../shared/components/card/card.component';
 export class RevokeComponent implements OnInit {
   store = inject(Store<AppState>);
   certificateService = inject(CertificateService);
+  alertService = inject(AlertService);
 
   certificates: Observable<Certificate[]>
   
@@ -32,6 +34,7 @@ export class RevokeComponent implements OnInit {
         this.store.dispatch(setCertificates({certificates: res}));
       },
       error: (err) => {
+        this.alertService.setAlert({message: 'Error fetching certificates', type: 'ERROR'});
       }
     })    
   }

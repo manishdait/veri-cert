@@ -9,18 +9,14 @@
 
 @theme {
   --color-background: #FFFFFF;
-  --color-background-dim: #FAFAF9;
 
   --color-primary: #FF4D00;
-  --color-primary-hover: #E64500; 
-  --color-primary-green-dark: #388E3C;
-  --color-primary-green-accent: #66BB6A;
+  --color-primary-hover: #E64500;
 
   --color-error: #DC3545;
   --color-error-hover: #C82333;
 
   --color-outline-normal: #E6EAF0;
-  --color-outline-light: #f0f2f5;
 
   --color-text-bold: #333333;
   --color-text-mid: #6c757d;
@@ -35,24 +31,20 @@
 }
 
 @layer utility {
-  .low {
-    @apply bg-[#00a63d] text-white font-semibold;
+  .success {
+    @apply bg-green-500 dark:bg-green-700 text-white;
   }
 
-  .medium {
-    @apply bg-[#e17100] text-white font-semibold;
+  .warn {
+    @apply bg-amber-500 dark:bg-amber-700 text-white;
   }
 
-  .high {
-    @apply bg-[#e7000b] text-white font-semibold;
+  .error {
+    @apply bg-red-500 dark:bg-red-700 text-white;
   }
 
-  .open {
-    @apply bg-[#155dfc] text-white font-semibold;
-  }
-
-  .close {
-    @apply bg-[#9810fa] text-white font-semibold;
+  .info {
+    @apply bg-blue-500 dark:bg-blue-700 text-white;
   }
 }
 

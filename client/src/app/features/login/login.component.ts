@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { AuthRequest } from '../../model/auth.model';
 import { InputComponent } from '../../shared/components/input/input.component';
+import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,9 @@ import { InputComponent } from '../../shared/components/input/input.component';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  authService = inject(AuthService);
   router = inject(Router);
+  authService = inject(AuthService);
+  alertService = inject(AlertService);
 
   processing = signal(false);
   form: FormGroup;
@@ -54,6 +56,13 @@ export class LoginComponent {
       error: (err) => {
         this.form.enable();
         this.processing.set(false);
+
+        if (err.error.status === 403) {
+          this.alertService.setAlert({message: err.error.message, type: 'ERROR'});
+        } else{ 
+          this.alertService.setAlert({message: "Error occurs while login", type: 'ERROR'});
+        }
+
         console.error(err);
       }
     });

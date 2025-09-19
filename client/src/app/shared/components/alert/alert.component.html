@@ -1,0 +1,7 @@
+@if (alert() && alert() !== null) {
+  <div class="fixed mt-[4rem] w-full flex items-center justify-center p-2 z-50">
+    <span class="block w-[min(100%,350px)] text-center p-2 rounded-lg font-medium text-base" 
+      [class]="{'info': alert()!.type === 'INFO', 'error': alert()!.type === 'ERROR', 'warn': alert()!.type === 'WARN', 'success': alert()!.type === 'SUCCESS'}"
+    >{{ alert()!.message }}</span>
+  </div>
+}

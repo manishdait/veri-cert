@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { RegistrationRequest } from '../../model/auth.model';
 import { InputComponent } from '../../shared/components/input/input.component';
+import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -12,8 +13,9 @@ import { InputComponent } from '../../shared/components/input/input.component';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  authService = inject(AuthService);
   router = inject(Router);
+  authService = inject(AuthService);
+  alertService = inject(AlertService);
 
   role = signal<'USER'|'ISSUER'>('USER')
 
@@ -59,6 +61,13 @@ export class RegisterComponent {
       error: (err) => {
         this.form.enable();
         this.processing.set(false);
+
+        if (err.error.status === 400) {
+          this.alertService.setAlert({message: err.error.message, type: 'WARN'});
+        } else {
+          this.alertService.setAlert({message: "Error creating account", type: 'ERROR'});
+        }
+
         console.error(err);
       }
     });

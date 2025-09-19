@@ -3,7 +3,7 @@ export interface Certificate {
   issuer: string;
   timestamp: Date;
   memo: string;
-  uuid: string;
+  readonly uuid: string;
   revoke: boolean;
 };
 

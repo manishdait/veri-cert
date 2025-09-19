@@ -3,10 +3,11 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { fontawsomeIcons } from './shared/utils/fa-icons';
+import { AlertComponent } from './shared/components/alert/alert.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, AlertComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit {
           event.urlAfterRedirects.startsWith('/view/')
         ))
       }
-    })
+    });  
   }
 
   ngOnInit(): void {

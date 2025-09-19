@@ -6,6 +6,7 @@ import { CertificateService } from '../../core/services/certificate.service';
 import { Certificate } from '../../model/certificate.model';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { InfoComponent } from '../../shared/components/info/info.component';
+import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-verify',
@@ -14,8 +15,9 @@ import { InfoComponent } from '../../shared/components/info/info.component';
   styleUrl: './verify.component.css'
 })
 export class VerifyFormComponent implements OnInit {
-  certificateService = inject(CertificateService);
   route = inject(ActivatedRoute);
+  certificateService = inject(CertificateService);
+  alertService = inject(AlertService);
 
   onCancel = output<boolean>();
   uuid = signal<undefined|string>(this.route.snapshot.queryParams['uuid']);
@@ -35,7 +37,8 @@ export class VerifyFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.uuid() && this.uuid() !== undefined) {
-      this.verify(this.uuid()!);
+      this.form.controls['uuid'].setValue(this.uuid());
+      this.verifyCertificate();
     }
   }
 
@@ -75,6 +78,7 @@ export class VerifyFormComponent implements OnInit {
         this.form.enable();
         this.processing.set(false);
         this.verified.set(false);
+        this.alertService.setAlert({message: 'Error verifiying certificate', type: 'ERROR'});
         console.error(err);
       }
     })
