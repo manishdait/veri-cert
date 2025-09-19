@@ -81,6 +81,7 @@ public class CertificateService {
       .toList();
   }
 
+  @Transactional
   public CertificateResponse revokeCertificate(String uuid, Authentication authentication) {
     User issuer = (User) authentication.getPrincipal();
     Certificate certificate = findCertificateById(uuid);
