@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputComponent } from '../components/input/input.component';
-import { CertificateService } from '../services/certificate.service';
-import { CertificateRequest } from '../model/certificate.model';
+import { CertificateService } from '../../core/services/certificate.service';
+import { CertificateRequest } from '../../model/certificate.model';
+import { InputComponent } from '../../shared/components/input/input.component';
 
 @Component({
   selector: 'app-issue',

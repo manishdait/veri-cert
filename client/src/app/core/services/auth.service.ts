@@ -1,10 +1,10 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { AuthRequest, AuthResponse, RegistrationRequest } from '../model/auth.model';
 import { catchError, map, Observable, of, switchMap } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
-import { User } from '../model/user.model';
+import { environment } from '../../../environments/environment';
+import { RegistrationRequest, AuthResponse, AuthRequest } from '../../model/auth.model';
+import { User } from '../../model/user.model';
 
 const URL = environment.API_URL;
 

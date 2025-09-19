@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Certificate, CertificateRequest } from '../model/certificate.model';
+import { environment } from '../../../environments/environment';
+import { Certificate, CertificateRequest } from '../../model/certificate.model';
 
 const URL = environment.API_URL;
 

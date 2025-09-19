@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CertificateService } from '../services/certificate.service';
-import { Certificate } from '../model/certificate.model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { CertificateService } from '../../core/services/certificate.service';
+import { Certificate } from '../../model/certificate.model';
 
 @Component({
   selector: 'app-view',

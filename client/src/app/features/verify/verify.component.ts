@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { InputComponent } from '../components/input/input.component';
-import { CertificateService } from '../services/certificate.service';
-import { Certificate } from '../model/certificate.model';
 import { ActivatedRoute } from '@angular/router';
+import { CertificateService } from '../../core/services/certificate.service';
+import { Certificate } from '../../model/certificate.model';
+import { InputComponent } from '../../shared/components/input/input.component';
 
 @Component({
   selector: 'app-verify',

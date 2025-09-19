@@ -1,9 +1,8 @@
-import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from './services/auth.service';
 import { inject } from '@angular/core';
-import { homeGuard } from './home.guard';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
-export const issuerGuard: CanActivateFn = (route, state) => {
+export const userGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
@@ -14,7 +13,7 @@ export const issuerGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
-  if (user()!.role === 'ISSUER') {
+  if (user()!.role === 'USER') {
     return true;
   }
 

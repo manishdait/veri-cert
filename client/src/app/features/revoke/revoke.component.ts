@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CertificateService } from '../services/certificate.service';
-import { Certificate } from '../model/certificate.model';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CertificateService } from '../../core/services/certificate.service';
+import { Certificate } from '../../model/certificate.model';
 
 @Component({
   selector: 'app-revoke',

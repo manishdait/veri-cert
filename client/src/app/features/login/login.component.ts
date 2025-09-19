@@ -1,28 +1,25 @@
 import { Component, inject, signal } from '@angular/core';
-import { InputComponent } from '../components/input/input.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RegistrationRequest } from '../model/auth.model';
-import { AuthService } from '../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { AuthRequest } from '../../model/auth.model';
+import { InputComponent } from '../../shared/components/input/input.component';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-login',
   imports: [RouterLink, ReactiveFormsModule, InputComponent],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
-export class RegisterComponent {
+export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
-
-  role = signal<'USER'|'ISSUER'>('USER')
 
   form: FormGroup;
   formError = signal(false);
 
   constructor() {
     this.form = new FormGroup({
-      username: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     });
@@ -32,23 +29,21 @@ export class RegisterComponent {
     return this.form.controls;
   }
 
-  registerUser() {
+  authenticateUser() {
     if (this.form.invalid) {
       this.formError.set(true);
       return;
     }
 
     this.formError.set(false);
-    const request: RegistrationRequest = {
-      uname: this.form.get('username')?.value,
+    const request: AuthRequest = {
       email: this.form.get('email')?.value,
-      password: this.form.get('password')?.value,
-      role: this.role()
+      password: this.form.get('password')?.value
     }
 
-    this.authService.registerUser(request).subscribe({
+    this.authService.authenticateUser(request).subscribe({
       next: (res) => {
-        this.router.navigate(['/home'], {replaceUrl: true});
+        this.router.navigate(['/home'], {replaceUrl: true})
       },
       error: (err) => {
         console.error(err);
