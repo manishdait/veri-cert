@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.example.veri_cert.contract.ContractService;
+import com.example.veri_cert.blockchain.ContractService;
 import com.example.veri_cert.user.User;
 import com.example.veri_cert.user.UserRepository;
 

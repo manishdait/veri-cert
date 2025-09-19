@@ -1,4 +1,4 @@
-package com.example.veri_cert.contract;
+package com.example.veri_cert.blockchain;
 
 import java.time.Instant;
 

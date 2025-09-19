@@ -11,7 +11,7 @@ spring:
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   security:
     jwt:
       secret-key: ${JWT_SECRET_KEY}
