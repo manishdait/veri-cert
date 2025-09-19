@@ -1,6 +1,6 @@
 # VeriCert – Blockchain-based Certificate Verification System
 
-VeryCert is a blockchain-powered certificate verification platform. It allows issuers to create and revoke certificates, users to access their certificates, and anyone to verify them securely via blockchain (Hedera Testnet).
+VeriCert is a blockchain-powered certificate verification platform. It allows issuers to create and revoke certificates, users to access their certificates, and anyone to verify them securely via blockchain (Hedera Testnet).
 
 ## 🚀 Features
 - ✅ JWT-based **Login & Signup** (Users / Issuers)
