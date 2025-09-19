@@ -1,6 +1,6 @@
 <main class="w-screen flex items-center justify-center">
-  <div class="w-[min(100%,1000px)] flex flex-col items-center justify-center gap-4 p-4 text-text-bold">
-    <span class="block w-full text-3xl font-semibold text-text-bold mb-4">Issued Certificated</span>
+  <div class="w-[min(100%,1000px)] flex flex-col items-center justify-center gap-4 p-4 text-text-bold dark:text-white">
+    <span class="block w-full text-3xl font-semibold text-text-bold mb-4 dark:text-white">Issued Certificated</span>
 
     <ul class="w-full flex flex-col gap-4">
       @for (certificate of (certificates | async); track certificate.uuid) {

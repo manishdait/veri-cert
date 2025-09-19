@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,9 +12,12 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   authService = inject(AuthService);
+  themeService = inject(ThemeService);
+
   router = inject(Router);
 
   user = this.authService.getUser();
+  dark = this.themeService.dark;
 
   logout() {
     this.authService.logout();
@@ -22,5 +26,9 @@ export class NavbarComponent {
 
   login() {
     this.router.navigate(['/login']);
+  }
+
+  toggleTheme() {
+    this.themeService.toggle();
   }
 }

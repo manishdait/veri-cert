@@ -1,11 +1,11 @@
-<div class="w-screen h-screen flex items-center justify-center p-4">
-  <div class="w-[min(100%,350px)] flex items-center justify-center flex-col gap-8 rounded-lg shadow-md px-[1.5em] py-[2em] border-[.1em] border-outline-normal">
+<div class="w-full h-full flex items-center justify-center p-4 dark:bg-neutral-900">
+  <div class="w-[min(100%,350px)] flex items-center justify-center flex-col gap-8 rounded-lg shadow-md px-[1.5em] py-[2em] border-[.1em] border-outline-normal dark:border-neutral-700 dark:shadow-neutral-800">
     <div>
       <h1 class="text-3xl text-center font-bold text-primary">VeriCert</h1>
-      <span class="text-xl font-semibold block text-center mb-2 text-text-bold">Login to your account</span>
+      <span class="text-xl font-semibold block text-center mb-2 text-text-bold dark:text-white">Login to your account</span>
     </div>
 
-    <form class="w-full flex flex-col gap-4" [formGroup]="form" (ngSubmit)="authenticateUser()">
+    <form class="w-full flex flex-col gap-4 dark:text-white" [formGroup]="form" (ngSubmit)="authenticateUser()">
       <div>
         <label class="text-sm" for="email">Email</label>
         <app-input [placeholder]="'eg.jhon@someone.com'" [controlType]="'email'" [id]="'email'" formControlName="email"/>
@@ -27,7 +27,7 @@
 
       <div class="flex flex-col gap-2">
         <button [class]="{'loading': processing()}">Login</button>
-        <span class="text-center block text-text-bold">Don't have account? <a class="text-primary cursor-pointer underline" routerLink="/sign-up" replaceUrl="true">Create Account</a></span>
+        <span class="text-center block text-text-bold dark:text-white">Don't have account? <a class="text-primary cursor-pointer underline" routerLink="/sign-up" replaceUrl="true">Create Account</a></span>
       </div>
     </form>
   </div>

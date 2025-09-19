@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 * {
   outline: none;
 }
@@ -9,13 +11,13 @@
   --color-background: #FFFFFF;
   --color-background-dim: #FAFAF9;
 
-  --color-primary: #FF4D00; /* Main brand green: #4CAF50 */
-  --color-primary-green-light: #E8F5E9; /* Very light green for subtle backgrounds */
-  --color-primary-green-dark: #388E3C; /* Darker green for hover/active */
+  --color-primary: #FF4D00;
+  --color-primary-hover: #E64500; 
+  --color-primary-green-dark: #388E3C;
   --color-primary-green-accent: #66BB6A;
 
   --color-error: #DC3545;
-  --color-error-shade: #C82333;
+  --color-error-hover: #C82333;
 
   --color-outline-normal: #E6EAF0;
   --color-outline-light: #f0f2f5;
@@ -27,7 +29,8 @@
 
 @layer base {
   button {
-    @apply w-full text-[1rem] font-medium px-2 py-1 rounded-md border-[.1em] cursor-pointer
+    @apply relative w-full text-[1rem] text-white font-medium px-2 py-1 rounded-md border-[.1em] cursor-pointer 
+    bg-primary border-primary hover:bg-primary-hover hover:border-primary-hover
   }
 }
 
@@ -72,5 +75,35 @@ html {
 @media screen and (max-width: 200px) {
   html {
     font-size: .7rem;
+  }
+}
+
+.loading {
+  color: transparent;
+}
+.loading::after {
+  opacity: 1;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: .15em solid #ffffff00;
+  border-right-color: #fff;
+  border-radius: 50%;
+  top: 10%;
+  left: 47%;
+  opacity: 0;
+  animation: rotate .7s linear  infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

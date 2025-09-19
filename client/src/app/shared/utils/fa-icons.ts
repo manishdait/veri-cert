@@ -1,4 +1,4 @@
-import { faBars, faCircleCheck, faCircleXmark, faClose, faCopy, faEye, faEyeSlash, faPlus, faRightFromBracket, IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCircleCheck, faCircleXmark, faClose, faCopy, faEye, faEyeSlash, faM, faMoon, faPlus, faRightFromBracket, faSun, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 export const fontawsomeIcons: IconDefinition[] = [
   faEye,
@@ -9,5 +9,7 @@ export const fontawsomeIcons: IconDefinition[] = [
   faCircleXmark,
   faBars,
   faPlus,
-  faRightFromBracket
+  faRightFromBracket,
+  faMoon,
+  faSun
 ]

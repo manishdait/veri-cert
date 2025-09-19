@@ -1,13 +1,13 @@
 <main class="w-screen flex items-center justify-center">
-  <div class="w-[min(100%,1000px)] flex flex-col items-center justify-center gap-4 p-4 text-text-bold">
-      <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal p-4 rounded-lg cursor-pointer hover:shadow-sm" routerLink="/verify">
-        <fa-icon class="text-5xl text-primary mb-2" [icon]="'circle-check'"/>
-        <span class="text-3xl block text-center font-semibold">Verify Certificate</span>
-        <p class="text-base text-center text-text-mid">Check the authenticity of a certificate using its unique ID.</p>
-      </div>
+  <div class="w-[min(100%,1000px)] flex flex-col items-center justify-center gap-4 p-4 text-text-bold dark:text-white">
+    <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal dark:border-neutral-700 p-4 rounded-lg cursor-pointer hover:shadow-sm dark:shadow-neutral-800" routerLink="/verify">
+      <fa-icon class="text-5xl text-primary mb-2" [icon]="'circle-check'"/>
+      <span class="text-3xl block text-center font-semibold">Verify Certificate</span>
+      <p class="text-base text-center text-text-mid">Check the authenticity of a certificate using its unique ID.</p>
+    </div>
 
       @if (user()!.role === 'USER') {
-        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal p-4 rounded-lg cursor-pointer hover:shadow-sm" routerLink="/certificates">
+        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal dark:border-neutral-700 p-4 rounded-lg cursor-pointer hover:shadow-sm dark:shadow-neutral-800" routerLink="/certificates">
           <fa-icon class="text-5xl text-primary mb-2" [icon]="'bars'"/>
           <span class="text-3xl block text-center font-semibold">View Certificates</span>
           <p class="text-base text-center text-text-mid">See a list of your previously issued certificates.</p>
@@ -15,7 +15,7 @@
       }
 
       @if (user()!.role === 'ISSUER') {
-        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal p-4 rounded-lg cursor-pointer hover:shadow-sm" routerLink="/issue">
+        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal dark:border-neutral-700 p-4 rounded-lg cursor-pointer hover:shadow-sm dark:shadow-neutral-800" routerLink="/issue">
           <fa-icon class="text-5xl text-primary mb-2" [icon]="'plus'"/>
           <span class="text-3xl block text-center font-semibold">Issue Certificates</span>
           <p class="text-base text-center text-text-mid">Issue a new certificate with a unique ID and details.</p>
@@ -23,7 +23,7 @@
       }
 
       @if (user()!.role === 'ISSUER') {
-        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal p-4 rounded-lg cursor-pointer hover:shadow-sm" routerLink="/revoke">
+        <div class="w-full flex flex-col items-center justify-center gap-2 border-[.1em] border-outline-normal dark:border-neutral-700 p-4 rounded-lg cursor-pointer hover:shadow-sm dark:shadow-neutral-800" routerLink="/revoke">
           <fa-icon class="text-5xl text-primary mb-2" [icon]="'circle-xmark'"/>
           <span class="text-3xl block text-center font-semibold">Revoke Certificate</span>
           <p class="text-base text-center text-text-mid">Revoke a previously issued certificate, making it invalid.</p>

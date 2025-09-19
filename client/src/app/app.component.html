@@ -1,4 +1,11 @@
-@if (navbar()) {
-  <app-navbar/>
-}
-<router-outlet/>
+<main class="w-screen h-screen flex flex-col">
+  @if (navbar()) {
+    <div class="w-full">
+      <app-navbar/>
+    </div>
+  }
+
+  <div class="w-full grow overflow-x-hidden overflow-y-scroll">
+    <router-outlet/>
+  </div>
+</main>

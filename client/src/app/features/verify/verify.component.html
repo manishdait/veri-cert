@@ -1,5 +1,5 @@
-<main class="w-screen flex items-center justify-center text-text-bold p-4 z-50">
-  <div class="bg-background w-[min(100%,400px)] rounded-lg border-[.1em] border-outline-normal p-4">
+<main class="w-screen flex items-center justify-center text-text-bold dark:text-white p-4 z-50">
+  <div class="w-[min(100%,400px)] rounded-lg border-[.1em] border-outline-normal dark:border-neutral-700 p-4">
     @if (verified() === null) {
       <div class="flex items-center justify-between gap-1 mb-4">
         <span class="text-xl font-semibold block">Verify Certificate</span>
@@ -8,7 +8,7 @@
       <form class="w-full flex flex-col gap-4" [formGroup]="form" (ngSubmit)="verifyCertificate()">
         <div>
           <label class="text-sm" for="id">Cerificate ID</label>
-          <app-input [id]="'id'" [placeholder]="'eg.q9beeee5-7898-4f34-8860-d3507d6abaaa'" formControlName="uuid"/>
+          <app-input [id]="'id'" [placeholder]="'eg.9beeee5-7898-4f3e4-8860-d3507d6abaaa'" formControlName="uuid"/>
           @if (formError() && formControl['uuid'].errors) {
             <span class="text-sm text-error">*Required certificate id</span>
           }
@@ -30,7 +30,7 @@
 
         
         @if (certificate() !== null) {        
-          <div class="border-b-[.1em] border-outline-normal w-full my-4"></div>
+          <div class="border-b-[.1em] border-outline-normal dark:border-neutral-700 w-full my-4"></div>
 
           <app-info [certificate]="certificate()!"/>
         }
