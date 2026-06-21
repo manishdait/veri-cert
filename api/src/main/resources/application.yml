@@ -21,5 +21,5 @@ spring:
     account_id: ${HIERO_ACCOUNT_ID}
     private_key: ${HIERO_PRIVATE_KEY}
     network:
-      name: ${HIERO_NETWORK:hedera-testnet}
+      name: hedera-testnet
     contract_address: ${CONTRACT_ADDRESS}

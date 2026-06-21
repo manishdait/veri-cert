@@ -2,14 +2,19 @@
 
 VeriCert is a blockchain-powered certificate verification platform. It allows issuers to create and revoke certificates, users to access their certificates, and anyone to verify them securely via blockchain (Hedera Testnet).
 
-## 🚀 Features
-- ✅ JWT-based **Login & Signup** (Users / Issuers)
-- ✅ **Issuers** Issue & Revoke Certificates
-- ✅ **Users** Access & Share Certificates
-- ✅ Public **Verification** by ID or QR Code
-- ✅ **Postgres** for relational data
-- ✅ **Smart Contract** for immutable storage and verification
-- ✅ Contract **Integration** via **Hiero Enterprise Java SDK**
+
+## Feature
+- JWT-based **Login & Signup** (Users / Issuers)
+    - **Issuers:** Issue & Revoke certificates to user
+    - **Users:** Access & Share there certificates
+    
+- Public **Verification** by ID or QR Code
+
+- **Postgres** for off-chain data storage
+
+- **Smart Contract** for immutable storage and verification (on-chain)
+
+- Smart Contract **Integration** via **Hiero Enterprise Java SDK**
 
 
 ## Project Structure
@@ -35,7 +40,7 @@ VeriCert is a blockchain-powered certificate verification platform. It allows is
 
 ```
 
-## 📦 Setup
+## Setup
 1. Clone Repo
 
     ```bash
@@ -48,22 +53,21 @@ VeriCert is a blockchain-powered certificate verification platform. It allows is
     ```env
     DB_USERNAME=your_db_user
     DB_PASSWORD=your_db_password
-    DB_URL=jdbc:postgresql://localhost:5432/blockcertify
+    DB_URL=jdbc:postgresql://localhost:5432/veri_cert
 
     CLIENT_URL=http://localhost:4200
 
     JWT_SECRET_KEY=your_secret
-    JWT_EXPIRATION=3600000
+    JWT_EXPIRATION=3600
 
     HIERO_ACCOUNT_ID=0.0.xxxx
     HIERO_PRIVATE_KEY=302e...
-    HIERO_NETWORK=testnet
+    HIERO_NETWORK=hedera-testnet
 
     CONTRACT_ADDRESS=0.0.xxxx
 
     ```
-3. How to Generate & Deploy Smart Contract ID:
-    - Go to the [Hedera Playground](https://portal.hedera.com/playground)
+3. How Deploy Smart Contract:
 
     - Deploy your certificate smart contract:
         ```js
@@ -99,7 +103,7 @@ VeriCert is a blockchain-powered certificate verification platform. It allows is
         CONTRACT_ADDRESS=0.0.xxxx
         ```
       
-    - Spring Boot backend will now interact with this contract using the **Hiero Enterprise Java SDK**.
+    - Spring Boot backend will now interact with this contract using the **Hiero Enterprise Java**.
 
 4. Start PostgreSQL
     ```bash
@@ -115,12 +119,12 @@ VeriCert is a blockchain-powered certificate verification platform. It allows is
 6. Run Frontend
     ```bash
     cd client
-    npm install
-    npm start
+    bun install
+    bun start
     ```
 
 
-## 🔑 Example Workflow
+## Example Workflow
 
 1. Issuer logs in → issues certificate
 

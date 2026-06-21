@@ -20,7 +20,7 @@
     <java.version>17</java.version>
     <jjwt.version>0.12.6</jjwt.version>
     <io.grpc.version>1.70.0</io.grpc.version>
-    <hiero.enterprise.version>0.19.0</hiero.enterprise.version>
+    <hiero.enterprise.version>0.20.0</hiero.enterprise.version>
   </properties>
   
   <dependencies>
@@ -78,7 +78,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.open-elements.hiero</groupId>
+      <groupId>org.hiero</groupId>
       <artifactId>hiero-enterprise-spring</artifactId>
       <version>${hiero.enterprise.version}</version>
     </dependency>
